@@ -11,6 +11,10 @@
     .ui.fixed.menu
       .ui.container
         = link_to'PGBouncerHero', root_path, class: 'header item'
+      - if ENV['DYNO']
+        .ui.right
+          .ui.teal.label
+            = ENV['DYNO']  
     .pusher
       .ui.main.container
         #flash.row= render partial: 'shared/flash_messages', flash: flash
