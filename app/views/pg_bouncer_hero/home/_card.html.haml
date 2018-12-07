@@ -4,7 +4,7 @@
       .ui.segment{style: 'height: 60px;'}
         %div{style: 'float: left;'}
           %div{style: 'font-size: 16px; font-weight: bold;'}= database.name
-          %div{style: 'font-size: 12px; color: grey'}= database.host
+          %div{style: 'font-size: 12px; color: grey'}= database.host.starts_with?('/') ? 'Unix socket' : database.host
         %button.ui.button.basic.button{id: "segment_status_#{database.group.name.parameterize}_#{database.name.parameterize}", style: 'float: right;', class: 'grey'}= 'N/A'
       = render partial: partial, locals: {database: database, id: "segment_content_#{database.group.name.parameterize}_#{database.name.parameterize}"}
       .ui.segment{id: "segment_refreshed_#{database.group.name.parameterize}_#{database.name.parameterize}", style: 'height: 35px; display: none;'}

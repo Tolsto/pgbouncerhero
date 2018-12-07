@@ -8,7 +8,7 @@ module PgBouncerHero
     def initialize(group, id, config)
       @id = id
       @config = config || {}
-      @url = URI.parse(config["url"])
+      @url = parse_url(config["url"])
       @group = group
     end
 
@@ -41,6 +41,19 @@ module PgBouncerHero
     end
 
     private
+
+    def parse_url(url)
+      url = URI.parse(url)
+      return url unless url.scheme == 'socket'
+
+      OpenStruct.new(
+        host: "/#{url.host}",
+        port: url.port,
+        user: url.user,
+        password: url.password,
+        path: url.path
+      )
+    end
 
     def connection_model
       @connection_model ||= begin
